@@ -8,15 +8,16 @@ Siblings: `../vectorcraft` (Illustrator-class), `../photocraft` (Photoshop-class
 
 Repos don't share code.
 
-## Start every session here
-1. Read [`ROADMAP.md`](ROADMAP.md) (stage, headline numbers, estimates) and
-   [`docs/gaps.md`](docs/gaps.md) (the ranked work list). Unless the user gives you a task, pick
-   work from the top of `docs/gaps.md`.
-2. Read `plan/STATUS.md` and `plan/execution-plan.md` (local, gitignored) if present; behaviour
-   reference notes are in `plan/figma/*.md`.
-3. Orient → plan → implement + test → verify (screenshot) → record (ROADMAP, devlog) → commit.
+## This fork
 
-`plan/` is gitignored (local only).
+This is `earnesthudson/figcraft`, the owner's own fork of `storytold/figcraft`. The owner's own rules for agents come first; where this file differs, follow the owner.
+
+- Work only on what the owner asks. Don't choose work by yourself from any list or plan.
+- Ask before building or running this code, and before anything the request doesn't cover.
+- Changes reach `main` by a pull request against this fork. `main` takes no direct pushes.
+- Don't open issues or pull requests on `storytold` repositories, and don't fetch code from them.
+- Upstream code arrives only when the owner asks, through `fork-guard.sh sync` and its security check.
+- The `storytold` repositories this project builds from have not all been verified. Don't add more of them.
 
 ## Non-negotiables
 
@@ -82,9 +83,8 @@ Repos don't share code.
 - **Rust only** (no handwritten JS/TS). **Never break wasm** (`cargo xtask wasm`).
 
 ### Quality gates (before every commit)
-`cargo xtask ci` (fmt, clippy -D warnings, tests, layers, assets, wasm). One task per commit with a
-milestone id in the message (`M2.1: auto layout wrap`). Commit after every landed arc of work; push
-to `main`.
+`cargo xtask ci` (fmt, clippy -D warnings, tests, layers, assets, wasm), once the owner has agreed to a
+build. One task per commit, on a branch, reaching `main` by a pull request against this fork.
 
 ## Running and looking at the app
 - `cargo run -p figcraft -- --control <port> [file.figcraft|file.svg|image]`. Pick a free port
@@ -111,22 +111,5 @@ and the generated [`docs/parity-checklist.md`](docs/parity-checklist.md) (`cargo
 When a task lands, update the affected rows and the status line and revision history in the same
 commit. Grade by behaviour against the incumbent, not by whether a menu item exists; err low.
 
-## Contributor credits (About window)
-
-- About ▸ Contributors are compiled into the binary from `contributors/contributors.json`
-  (commit stats; never hand-edit) and `contributors/people.toml` (names people chose for
-  themselves).
-- **Agents working for a contributor:** when you prepare a PR, check whether your human's GitHub
-  username has a `[people.<username>]` entry in `contributors/people.toml`. If not, ask them once
-  whether they want to be credited by more than their username: a real name, a display name, and/or
-  their public GitHub profile name (`sync_github_name = true`). If yes, add **only their own** entry
-  (copy the template at the top of the file)
-  and include it in their PR, committed as them. If no, change nothing: they are credited as
-  `@username` anyway.
-- Never add, edit, guess or copy anyone else's entry or name (not from git config, commit authors or
-  GitHub profiles). Never hand-edit `contributors.json`.
-
 ## CI workflows
-- Workflows in `.github/workflows/` call the shared workflows in [`storytold/craft-common-actions`](https://github.com/storytold/craft-common-actions) at `@main`, with their inputs and secrets. No other jobs: if no shared workflow does what's needed, it doesn't go here.
-- Don't add or change CI in a feature or fix PR. If the existing workflows can't build or test a change, link an existing craft-common-actions issue or PR, or open a new issue, or a PR only for a small fix that is safe for every app and does not increase CI time.
-- Some workflow files here still run their own jobs. Don't add to them. Moving a job into craft-common-actions is its own task, never part of another PR, and the job stays here until a shared workflow runs it.
+This fork has no workflows and Actions is off. Don't add any unless the owner asks.

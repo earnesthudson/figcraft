@@ -27,7 +27,7 @@
 #   -h, --help         this text
 set -euo pipefail
 
-REPO="storytold/figcraft"
+REPO="earnesthudson/figcraft"
 CONFIG_DIR=/etc/figcraft-server
 CONFIG="$CONFIG_DIR/server.toml"
 DATA=/var/lib/figcraft-server
@@ -188,7 +188,8 @@ from_source() { # build the source tree around this script, else a fresh clone; 
   id -u "$BUILDER" >/dev/null 2>&1 || useradd --system --home-dir "$BUILD" --shell /usr/sbin/nologin "$BUILDER"
   install -d -o "$BUILDER" -g "$BUILDER" -m 755 "$BUILD"
   if [[ ! -x "$BUILD/cargo/bin/cargo" ]]; then
-    as_builder sh -c "curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable --no-modify-path" >/dev/null
+    # This fork doesn't download and run the Rust installer.
+    die "Rust isn't installed for $BUILDER in $BUILD/cargo. Read its installer at https://rustup.rs, then install it first."
   else
     as_builder "$BUILD/cargo/bin/rustup" update stable >/dev/null
   fi
